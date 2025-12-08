@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pluto-auth-api
+    ports:
+      - "9019:9019"
+    en                  qvironment:
+      - NODE_ENV=development
+      - PORT=9019
+      # DB settings are kept for the app but compose will not start a DB service
+      - DB_CONNECTION=${DB_CONNECTION:-postgres}
+      - DB_HOST=${DB_HOST:-localhost}
+      - DB_PORT=${DB_PORT:-5432}
+      - DB_DATABASE=${DB_DATABASE:-Pluto}
+      - DB_USERNAME=${DB_USERNAME:-postgres}
+      - DB_PASSWORD=${DB_PASSWORD:-password}
+    networks:
+      - pluto-network
+    restart: unless-stopped
+
+
+networks:
+  pluto-network:
+    driver: bridge
+
+
