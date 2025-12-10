@@ -21,7 +21,18 @@ let sequelize: any;
 if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
+  sequelize = new Sequelize(process.env.DB_CONNECTION_STRING, {
+  logging: false,
+  dialectOptions: {
+    collate: "utf8_general_ci",
+  },
+  pool: {
+    max: 5,
+    min: 0,
+    acquire: 60000,
+    idle: 60000,
+  },
+});
 }
 
 fs
@@ -51,3 +62,4 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 export default db
+
