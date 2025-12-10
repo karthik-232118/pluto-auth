@@ -18,9 +18,9 @@ const config = require(__dirname + "/../config/config.js")[env];
 const db: any = {};
 
 let sequelize: any;
-if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
-} else {
+//if (config.use_env_variable) {
+ // sequelize = new Sequelize(process.env[config.use_env_variable], config);
+//} else {
   sequelize = new Sequelize(process.env.DB_CONNECTION_STRING, {
   logging: false,
   dialectOptions: {
@@ -33,7 +33,7 @@ if (config.use_env_variable) {
     idle: 60000,
   },
 });
-}
+//}
 
 fs
   .readdirSync(__dirname)
@@ -62,4 +62,5 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 export default db
+
 
