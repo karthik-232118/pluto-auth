@@ -25,6 +25,10 @@ let sequelize: any;
   logging: false,
   dialectOptions: {
     collate: "utf8_general_ci",
+    ssl: {
+      require: true, // This will help you. But you will see nwe error
+      rejectUnauthorized: false // This line fixes the "self signed certificate" error
+    }
   },
   pool: {
     max: 5,
@@ -62,5 +66,6 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 export default db
+
 
 
